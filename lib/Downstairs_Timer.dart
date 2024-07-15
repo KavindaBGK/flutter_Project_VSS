@@ -9,9 +9,9 @@ class TileControlPopupDialog extends StatefulWidget {
 }
 
 class _TileControlPopupDialogState extends State<TileControlPopupDialog> {
-  int selectedHour = 3;
-  int selectedMinute = 17;
-  bool isPm = true;
+  int selectedHour = 1;
+  int selectedMinute = 00;
+  bool isPm = false;
 
   void _onHourChanged(int index) {
     setState(() {

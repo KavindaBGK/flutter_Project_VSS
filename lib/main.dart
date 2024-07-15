@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:test1/Away_Mode.dart';
 import 'package:test1/Setting_Downstairs.dart';
 import 'dart:ui';
 
 import 'Downstairs_Timer.dart';
+import 'Eco_Mode.dart';
+import 'Sleep_Mode.dart';
 import 'Timer2.dart';
 import 'Usage.dart';
 
@@ -78,6 +81,40 @@ class HomeScreen extends StatelessWidget {
                 );
               },
               child: Text("Show SettingsDownstairs"),
+            ),
+            SizedBox(height: 20), // Adds space between the buttons
+            ElevatedButton(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return const SleepModeControl();
+                  },
+                );
+              },
+              child: Text("Sleep Mode"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return const AwayModeControl();
+                  },
+                );
+              },
+              child: Text("Away Mode"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return const EcoModeControl();
+                  },
+                );
+              },
+              child: Text("Eco Mode"),
             ),
           ],
         ),
