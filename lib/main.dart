@@ -3,21 +3,28 @@ import 'package:test1/Away_Mode.dart';
 import 'package:test1/Set_Point.dart';
 import 'package:test1/Setting_Downstairs.dart';
 import 'package:test1/Update.dart';
+import 'package:test1/test3.dart';
 import 'dart:ui';
 
 import 'Auto_off.dart';
+import 'Calibrate.dart';
 import 'Downstairs_Timer.dart';
 import 'Eco_Mode.dart';
 import 'Min_setpoint.dart';
+import 'QR.dart';
+import 'Remove.dart';
 import 'Routines.dart';
 import 'Select_Icon.dart';
 import 'Sensors.dart';
+import 'Setting_Main.dart';
 import 'Sleep_Mode.dart';
 import 'Timer2.dart';
 import 'Usage.dart';
 import 'Weather_Adapatation_Hot.dart';
 import 'Weather_Adaptation_cool.dart';
+import 'Wifi.dart';
 import 'Zones.dart';
+import 'colorpicker.dart';
 
 void main() {
   runApp(MyApp());
@@ -235,6 +242,85 @@ class HomeScreen extends StatelessWidget {
                   );
                 },
                 child: Text("Update"),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return QRControle();
+                    },
+                  );
+                },
+                child: Text("QR"),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return CalibrateControl();
+                    },
+                  );
+                },
+                child: Text("Calibrate"),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return WiFiControl();
+                    },
+                  );
+                },
+                child: Text("Wifi"),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return SettingsDownstairs1(initialScreenName: 'AC');
+                    },
+                  );
+                },
+                child: Text("test3"),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return RemoveDeviceControl();
+                    },
+                  );
+                },
+                child: Text("Remove"),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return ColorControl(
+                        initialScreenName: 'ColorPicker',
+                      );
+                    },
+                  );
+                },
+                child: Text("Color picker"),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return SettingsMain();
+                    },
+                  );
+                },
+                child: Text("Main setting"),
               ),
             ],
           ),

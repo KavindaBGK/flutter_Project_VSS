@@ -2,23 +2,18 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_switch/flutter_switch.dart';
 
 import 'Downstairs_Timer.dart';
 
-class SettingsDownstairs extends StatefulWidget {
-  const SettingsDownstairs({Key? key}) : super(key: key);
+class SettingsMain extends StatefulWidget {
+  const SettingsMain({Key? key}) : super(key: key);
 
   @override
   _SettingsDownstairsState createState() => _SettingsDownstairsState();
 }
 
-class _SettingsDownstairsState extends State<SettingsDownstairs> {
+class _SettingsDownstairsState extends State<SettingsMain> {
   late PageController _pageController;
-  bool turnOnWhenZoneTurnedOn1 = true;
-  bool turnOnWhenZoneTurnedOn2 = true;
-  bool turnOnWhenZoneTurnedOn3 = true;
-  bool useIntelligentAuto = false;
 
   @override
   void initState() {
@@ -89,7 +84,7 @@ class _SettingsDownstairsState extends State<SettingsDownstairs> {
                               ),
                               SizedBox(width: 20),
                               Text(
-                                "Settings Downstairs",
+                                "Settings Main",
                                 style: TextStyle(
                                   fontSize: 42,
                                   //fontFamily: 'Outfit',
@@ -100,7 +95,6 @@ class _SettingsDownstairsState extends State<SettingsDownstairs> {
                             ],
                           ),
                           SizedBox(height: 20),
-                          _buildServiceInfo(),
                           SizedBox(height: 10),
                           _buildImageSet(),
                           SizedBox(height: 20),
@@ -116,79 +110,6 @@ class _SettingsDownstairsState extends State<SettingsDownstairs> {
                 ),
               ),
             ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildServiceInfo() {
-    return Container(
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              SizedBox(width: 20),
-              Image.asset(
-                'assets/device_Onboard/Layer_1.png',
-                width: 120,
-                height: 120,
-              ),
-              SizedBox(width: 20),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Upcoming Service Due - 11/10/24",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    "Bob's AirCon Services - 0118 999 881",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 23,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              ElevatedButton(
-                onPressed: () {
-                  // Add your reminder functionality here
-                },
-                child: Text(
-                  "Remind me later",
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontFamily: 'Outfit',
-                      fontWeight: FontWeight.w900,
-                      color: Colors.white // Adjust the font size here
-                      ),
-                ),
-                style: ElevatedButton.styleFrom(
-                  primary: Color.fromARGB(255, 0, 0, 0).withOpacity(0.25),
-                  onPrimary: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(60.5),
-                  ),
-                  minimumSize: Size(190, 65),
-                ),
-              ),
-              SizedBox(width: 25), // Adjust the width as needed
-            ],
           ),
         ],
       ),
@@ -236,30 +157,6 @@ class _SettingsDownstairsState extends State<SettingsDownstairs> {
                 fontFamily: 'Outfit',
                 fontWeight: FontWeight.w900),
           ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildServiceInfoRow(IconData icon, String text1, String text2) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 5.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Icon(icon, color: Colors.white),
-          SizedBox(width: 10),
-          Expanded(
-            child: Text(
-              text1,
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
-          if (text2.isNotEmpty)
-            Text(
-              text2,
-              style: TextStyle(color: Colors.white),
-            ),
         ],
       ),
     );
@@ -348,9 +245,7 @@ class _SettingsDownstairsState extends State<SettingsDownstairs> {
           _buildFeatureToggle("Auto Off", "Not set",
               'assets/device_Onboard/Forward Large Icon.png'),
           SizedBox(height: 20),
-          _buildFeatureToggle(
-              "Set Point Range",
-              "Cooling 19-28°, Heating 16-28°",
+          _buildFeatureToggle("Brightness Range", "Not set",
               'assets/device_Onboard/Forward Large Icon.png'),
         ],
       ),
@@ -420,53 +315,44 @@ class _SettingsDownstairsState extends State<SettingsDownstairs> {
                 color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
           ),
           SizedBox(height: 20),
-          _buildButton(" Downstairs"),
+          _buildButton(" Main"),
           SizedBox(height: 20),
           _buildDropdownRowRoom("  Room", "6 Rooms", 6),
           SizedBox(height: 20),
           _buildDropdownRowIcon("  Icon", "", Icons.power_settings_new),
           SizedBox(height: 20),
-          _buildToggle("Turn On Air Conditioner when a Zone is Turned On",
-              turnOnWhenZoneTurnedOn1, (value1) {
-            setState(() {
-              turnOnWhenZoneTurnedOn1 = value1;
-            });
-          }),
-          _buildToggle(
-              "Turn Off Air Conditioner when the last Zone is Turned Off",
-              turnOnWhenZoneTurnedOn2, (value2) {
-            setState(() {
-              turnOnWhenZoneTurnedOn2 = value2;
-            });
-          }),
-          _buildToggle("Use Intelligent Auto", turnOnWhenZoneTurnedOn3,
-              (value3) {
-            setState(() {
-              turnOnWhenZoneTurnedOn3 = value3;
-            });
-          }),
-          SizedBox(height: 20),
-          _buildFeatureToggle("Zones", "6 Zones assigned",
+          _buildFeatureToggle(
+              "Combine Devices",
+              "Devices will be controlled by one tile.",
               "assets/device_Onboard/Forward Large Icon.png"),
-          SizedBox(
-            height: 20,
-          ),
-          _buildFeatureToggle("Sensors", "1 set, 3 available",
-              "assets/device_Onboard/Forward Large Icon.png"),
-          SizedBox(
-            height: 20,
-          ),
-          _buildConsoleVersionRow("Console Version 1.1.5",
-              "Main Module Version 2.0.0.2", "Check for Update"),
           SizedBox(
             height: 5,
           ),
-          _buildDeviceSettingRow("Manufacturer: AirTouch", "ID:00112233 "),
+          _buildDeviceSettingRow(
+              "Connected Via: Philips Hue Bridge 00349495", ""),
           SizedBox(
-            height: 20,
+            height: 1,
           ),
-          _buildFeatureToggle("Installer Setting", "",
-              "assets/device_Onboard/Forward Large Icon.png"),
+          _buildDeviceSettingRow("Wifi Signal Status: Good", ""),
+          SizedBox(
+            height: 1,
+          ),
+          _buildDeviceSettingRow("Manufacturer: Philips Hue", ""),
+          SizedBox(
+            height: 1,
+          ),
+          _buildDeviceSettingRow("Serial Number: 00112233", ""),
+          SizedBox(
+            height: 1,
+          ),
+          _buildDeviceSettingRow("Model: Hue e22 rgb", ""),
+          SizedBox(
+            height: 1,
+          ),
+          _buildDeviceSettingRow("Firmware: 6.32", ""),
+          SizedBox(
+            height: 1,
+          ),
           SizedBox(height: 25),
           ElevatedButton(
             onPressed: () {},
@@ -488,34 +374,6 @@ class _SettingsDownstairsState extends State<SettingsDownstairs> {
           ),
           SizedBox(height: 25),
           //////////
-          ElevatedButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                PageRouteBuilder(
-                  opaque: false, // Makes the background transparent
-                  pageBuilder: (BuildContext context, _, __) {
-                    return TileControlPopupDialog();
-                  },
-                ),
-              );
-            },
-            style: ElevatedButton.styleFrom(
-              primary: Colors.red,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(60.5),
-              ),
-              minimumSize: Size(200, 50),
-            ),
-            child: Text(
-              "Navigate",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'outfit',
-                  fontSize: 22),
-            ),
-          ),
         ],
       ),
     );
@@ -697,69 +555,6 @@ class _SettingsDownstairsState extends State<SettingsDownstairs> {
     );
   }
 
-  Widget _buildToggle(String text, bool value, ValueChanged<bool> onChanged) {
-    bool isIntelligentAuto = text == "Use Intelligent Auto";
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 1),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                      left: 11.0), // Adjust the left padding as needed
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        text,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 23,
-                          fontFamily: 'Outfit',
-                          fontWeight: FontWeight.w900,
-                        ),
-                      ),
-                      SizedBox(height: 5),
-                      if (isIntelligentAuto) // Condition to display the additional text
-                        Text(
-                          "Auto fan speed will be calculated based on the size of your ducting or room size.",
-                          style: TextStyle(
-                            color: Colors.white.withOpacity(0.7),
-                            fontSize: 16,
-                          ),
-                        ),
-                    ],
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                    right: 16.0), // Adjust the right padding as needed
-                child: Container(
-                  width: 96,
-                  height: 70, // Adjust to your desired size
-                  child: FlutterSwitch(
-                    width: 92,
-                    height: 38,
-                    value: value,
-                    onToggle: onChanged,
-                    activeColor: Colors.white,
-                    toggleColor: Colors.black,
-                    borderRadius: 60.5,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget _buildDeviceSettingRow(String title, String value) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0),
@@ -788,70 +583,6 @@ class _SettingsDownstairsState extends State<SettingsDownstairs> {
                   ),
                 ),
               ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildConsoleVersionRow(
-      String consoleVersion, String mainModuleVersion, String buttonText) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 12.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(
-                  left: 11.0), // Added padding inside the Expanded widget
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 7),
-                  Text(
-                    consoleVersion,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 23,
-                      fontFamily: 'Outfit',
-                      fontWeight: FontWeight.w900,
-                    ),
-                  ),
-                  Text(
-                    mainModuleVersion,
-                    style: TextStyle(
-                      color: Colors.white.withOpacity(0.7),
-                      fontSize: 16,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              // Add your update check functionality here
-            },
-            style: ElevatedButton.styleFrom(
-              primary: Color.fromARGB(255, 0, 0, 0).withOpacity(0.25),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(60.5),
-              ),
-              minimumSize: Size(300, 70),
-              alignment: Alignment.center, // Align content to the left
-              padding: EdgeInsets.symmetric(
-                  horizontal: 20), // Add padding to the left
-            ),
-            child: Text(
-              buttonText,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 22,
-                fontFamily: 'Outfit',
-                fontWeight: FontWeight.w600,
-              ),
             ),
           ),
         ],

@@ -39,6 +39,8 @@ dependencies:
   google_fonts: ^4.0.4
   flutter_switch: ^0.3.2
   intl: ^0.18.1
+  wifi_iot: ^0.3.19
+  flutter_colorpicker: ^1.1.0
 
 dev_dependencies:
   flutter_test:

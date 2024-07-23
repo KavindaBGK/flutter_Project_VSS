@@ -10,9 +10,9 @@ class EcoModeControl extends StatefulWidget {
 }
 
 class _EcoModeControlState extends State<EcoModeControl> {
-  bool _isSetPointLimitEnabled = false;
-  bool _isWeatherAdaptionEnabled = true;
-  bool _isAdvancedWeatherAdaptionEnabled = false;
+  bool _isSetPointLimitEnabledEco = false;
+  bool _isWeatherAdaptionEnabledEco = true;
+  bool _isAdvancedWeatherAdaptionEnabledEco = false;
 
   @override
   Widget build(BuildContext context) {
@@ -125,10 +125,10 @@ class _EcoModeControlState extends State<EcoModeControl> {
                                       fontWeight: FontWeight.w900),
                                 ),
                                 FlutterSwitch(
-                                  value: _isSetPointLimitEnabled,
+                                  value: _isSetPointLimitEnabledEco,
                                   onToggle: (val) {
                                     setState(() {
-                                      _isSetPointLimitEnabled = val;
+                                      _isSetPointLimitEnabledEco = val;
                                     });
                                   },
                                   width: 85.0,
@@ -247,10 +247,10 @@ class _EcoModeControlState extends State<EcoModeControl> {
                                       fontWeight: FontWeight.w900),
                                 ),
                                 FlutterSwitch(
-                                  value: _isWeatherAdaptionEnabled,
+                                  value: _isWeatherAdaptionEnabledEco,
                                   onToggle: (val) {
                                     setState(() {
-                                      _isWeatherAdaptionEnabled = val;
+                                      _isWeatherAdaptionEnabledEco = val;
                                     });
                                   },
                                   width: 85.0,
@@ -294,10 +294,11 @@ class _EcoModeControlState extends State<EcoModeControl> {
                                       fontWeight: FontWeight.w900),
                                 ),
                                 FlutterSwitch(
-                                  value: _isAdvancedWeatherAdaptionEnabled,
+                                  value: _isAdvancedWeatherAdaptionEnabledEco,
                                   onToggle: (val) {
                                     setState(() {
-                                      _isAdvancedWeatherAdaptionEnabled = val;
+                                      _isAdvancedWeatherAdaptionEnabledEco =
+                                          val;
                                     });
                                   },
                                   width: 85.0,
