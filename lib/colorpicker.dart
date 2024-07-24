@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'POWER.dart';
+import 'Remove.dart';
+import 'Room_Select.dart';
+import 'Select_Icon_RGB.dart';
 
 class ColorControl extends StatefulWidget {
   final String initialScreenName;
@@ -24,8 +27,10 @@ class _ColorControlState extends State<ColorControl> {
   bool isToggled = true;
   double opacity = 0.8;
 
-  bool _isSleepModeEnabled = false;
+  bool _isSleepModeEnabled = true;
   bool _isSleepModeEnabledAway = false;
+  bool _MaxBrightness = true;
+  bool _NightLight = false;
 
   @override
   void initState() {
@@ -138,6 +143,8 @@ class _ColorControlState extends State<ColorControl> {
                           _buildColorPicker(context),
                           _buildSettingMain(context),
                           _buildSleepMode(context),
+                          _buildAwaypMode(context),
+                          _buildEcoMode(context),
                         ],
                       ),
                     ),
@@ -172,10 +179,10 @@ class _ColorControlState extends State<ColorControl> {
               const SizedBox(width: 20),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children: [
                   Text(
                     "Main",
-                    style: TextStyle(
+                    style: GoogleFonts.outfit(
                       fontSize: 42,
                       fontWeight: FontWeight.w400,
                       color: Colors.white,
@@ -226,10 +233,9 @@ class _ColorControlState extends State<ColorControl> {
                     SizedBox(width: 20),
                     Text(
                       "More",
-                      style: TextStyle(
+                      style: GoogleFonts.outfit(
                         fontSize: 24,
-                        fontFamily: 'Outfit',
-                        fontWeight: FontWeight.w900,
+                        fontWeight: FontWeight.w400,
                         color: Colors.white,
                       ),
                     ),
@@ -264,7 +270,7 @@ class _ColorControlState extends State<ColorControl> {
               const SizedBox(width: 150),
               Text(
                 "${brightness.toInt()}%",
-                style: const TextStyle(
+                style: GoogleFonts.outfit(
                   fontSize: 100,
                   fontWeight: FontWeight.w400,
                   color: Colors.white,
@@ -281,7 +287,7 @@ class _ColorControlState extends State<ColorControl> {
               ),
               Text(
                 "Brightness",
-                style: const TextStyle(
+                style: GoogleFonts.outfit(
                   fontSize: 18,
                   fontWeight: FontWeight.w300,
                   color: Colors.white,
@@ -385,7 +391,7 @@ class _ColorControlState extends State<ColorControl> {
               if (isToggled) ...[
                 Text(
                   "${hue.toInt()}°",
-                  style: const TextStyle(
+                  style: GoogleFonts.outfit(
                       fontSize: 42,
                       color: Colors.white,
                       fontWeight: FontWeight.w400),
@@ -451,7 +457,7 @@ class _ColorControlState extends State<ColorControl> {
               ] else ...[
                 Text(
                   "${temp.toInt()}K",
-                  style: const TextStyle(
+                  style: GoogleFonts.outfit(
                       fontSize: 42,
                       color: Colors.white,
                       fontWeight: FontWeight.w400),
@@ -528,7 +534,7 @@ class _ColorControlState extends State<ColorControl> {
                 Expanded(
                   child: Text(
                     "${(opacity * 100).toInt()}%",
-                    style: const TextStyle(
+                    style: GoogleFonts.outfit(
                         fontSize: 42,
                         color: Colors.white,
                         fontWeight: FontWeight.w400),
@@ -596,7 +602,7 @@ class _ColorControlState extends State<ColorControl> {
               SizedBox(width: 20),
               Text(
                 "Settings Main",
-                style: TextStyle(
+                style: GoogleFonts.outfit(
                   fontSize: 42,
                   //fontFamily: 'Outfit',
                   fontWeight: FontWeight.w400,
@@ -654,11 +660,8 @@ class _ColorControlState extends State<ColorControl> {
           Text(
             text,
             textAlign: TextAlign.left,
-            style: TextStyle(
-                color: Colors.white,
-                fontSize: 23,
-                fontFamily: 'Outfit',
-                fontWeight: FontWeight.w900),
+            style: GoogleFonts.outfit(
+                color: Colors.white, fontSize: 24, fontWeight: FontWeight.w400),
           ),
         ],
       ),
@@ -676,8 +679,8 @@ class _ColorControlState extends State<ColorControl> {
         children: [
           Text(
             " Operation Mode Settings",
-            style: TextStyle(
-                color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
+            style: GoogleFonts.outfit(
+                color: Colors.white, fontWeight: FontWeight.w300, fontSize: 20),
           ),
           SizedBox(height: 25),
           Row(
@@ -686,7 +689,7 @@ class _ColorControlState extends State<ColorControl> {
               SizedBox(width: 1),
               _buildModeButton("Sleep Mode", 'assets/device_Onboard/sleep.png'),
               SizedBox(width: 34),
-              _buildModeButton("Auto Mode", 'assets/device_Onboard/Away.png'),
+              _buildModeButton("Away Mode", 'assets/device_Onboard/Away.png'),
               SizedBox(width: 34),
               _buildModeButton("Eco Mode", 'assets/device_Onboard/Eco.png'),
               SizedBox(width: 34),
@@ -705,6 +708,12 @@ class _ColorControlState extends State<ColorControl> {
         if (text == 'Sleep Mode') {
           _navigateToScreen('SleepMode');
         }
+        if (text == 'Away Mode') {
+          _navigateToScreen('AwayMode');
+        }
+        if (text == 'Eco Mode') {
+          _navigateToScreen('EcoMode');
+        }
       },
       style: ElevatedButton.styleFrom(
         primary: Color.fromARGB(255, 0, 0, 0).withOpacity(0.25),
@@ -721,11 +730,8 @@ class _ColorControlState extends State<ColorControl> {
           Text(
             text,
             textAlign: TextAlign.center,
-            style: TextStyle(
-                color: Colors.white,
-                fontSize: 23,
-                fontFamily: 'Outfit',
-                fontWeight: FontWeight.w900),
+            style: GoogleFonts.outfit(
+                color: Colors.white, fontSize: 24, fontWeight: FontWeight.w400),
           ),
         ],
       ),
@@ -743,8 +749,8 @@ class _ColorControlState extends State<ColorControl> {
         children: [
           Text(
             " Smart Features",
-            style: TextStyle(
-                color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
+            style: GoogleFonts.outfit(
+                color: Colors.white, fontWeight: FontWeight.w300, fontSize: 20),
           ),
           SizedBox(height: 20),
           _buildFeatureToggle("Auto Off", "Not set",
@@ -778,20 +784,18 @@ class _ColorControlState extends State<ColorControl> {
             children: [
               Text(
                 text1,
-                style: TextStyle(
+                style: GoogleFonts.outfit(
                     color: Colors.white,
-                    fontSize: 23,
-                    fontFamily: 'Outfit',
-                    fontWeight: FontWeight.w900),
+                    fontSize: 24,
+                    fontWeight: FontWeight.w400),
               ),
               SizedBox(height: 5), // Adjust this value as needed
               Text(
                 text2,
-                style: TextStyle(
+                style: GoogleFonts.outfit(
                     color: Colors.white,
-                    fontSize: 18,
-                    fontFamily: 'Outfit',
-                    fontWeight: FontWeight.w700),
+                    fontSize: 20,
+                    fontWeight: FontWeight.w300),
               ),
             ],
           ),
@@ -816,13 +820,13 @@ class _ColorControlState extends State<ColorControl> {
         children: [
           Text(
             " Device Settings",
-            style: TextStyle(
-                color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
+            style: GoogleFonts.outfit(
+                color: Colors.white, fontWeight: FontWeight.w300, fontSize: 20),
           ),
           SizedBox(height: 20),
           _buildButton(" Main"),
           SizedBox(height: 20),
-          _buildDropdownRowRoom("  Room", "6 Rooms", 6),
+          _buildDropdownRowRoom("  Lounge"),
           SizedBox(height: 20),
           _buildDropdownRowIcon("  Icon", "", Icons.power_settings_new),
           SizedBox(height: 20),
@@ -858,23 +862,32 @@ class _ColorControlState extends State<ColorControl> {
           SizedBox(
             height: 1,
           ),
-          SizedBox(height: 25),
+          SizedBox(height: 5),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return RemoveDeviceControl();
+                },
+              );
+            },
             style: ElevatedButton.styleFrom(
-              primary: Colors.red,
+              primary: Color.fromARGB(255, 0, 0, 0).withOpacity(0.25),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(60.5),
+                side: BorderSide(
+                    color: Color.fromARGB(255, 228, 38, 25), width: 2.5),
               ),
               minimumSize: Size(200, 50),
             ),
             child: Text(
               "Remove Device",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'outfit',
-                  fontSize: 22),
+              style: GoogleFonts.outfit(
+                color: Color.fromARGB(255, 228, 38, 25),
+                fontSize: 22,
+                fontWeight: FontWeight.w400,
+              ),
             ),
           ),
           SizedBox(height: 25),
@@ -901,22 +914,15 @@ class _ColorControlState extends State<ColorControl> {
       ),
       child: Text(
         text,
-        style: TextStyle(
-            color: Colors.white,
-            fontSize: 22,
-            fontFamily: 'outfit',
-            fontWeight: FontWeight.w600),
+        style: GoogleFonts.outfit(
+            color: Colors.white, fontSize: 22, fontWeight: FontWeight.w400),
       ),
     );
   }
 
-  Widget _buildDropdownRowRoom(String title, String value, int numberOfRooms) {
-    String selectedValue = "1  Rooms";
-    List<String> roomList =
-        List.generate(numberOfRooms, (index) => "${index + 1}  Rooms");
-
+  Widget _buildDropdownRowRoom(String title) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 3),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -924,78 +930,57 @@ class _ColorControlState extends State<ColorControl> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  width: double.infinity,
-                  child: Text(
-                    title,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 23,
-                      fontFamily: 'Outfit',
-                      fontWeight: FontWeight.w900,
-                    ),
+                SizedBox(height: 20),
+                Text(
+                  "   Room",
+                  style: GoogleFonts.outfit(
+                    color: Colors.white,
+                    fontSize: 24,
+                    fontWeight: FontWeight.w400,
                   ),
                 ),
                 SizedBox(
                     height: 5), // Add some space between title and subtitle
-                Container(
-                  padding: const EdgeInsets.only(
-                      left: 12.0), // Add left padding for indentation
-                  child: Text(
-                    "Rooms assignment set via zones",
-                    style: TextStyle(
-                      color: Colors.white.withOpacity(0.7),
-                      fontSize: 16,
-                    ),
-                  ),
-                ),
               ],
             ),
           ),
           SizedBox(width: 10), // Add space between the text and the dropdown
-          Container(
-            width: 300,
-            height: 80,
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-            decoration: BoxDecoration(
-              color: Colors.black.withOpacity(0.25),
-              borderRadius: BorderRadius.circular(60.5),
-            ),
-            child: DropdownButtonHideUnderline(
-              child: DropdownButton<String>(
-                dropdownColor: Colors.black.withOpacity(0.7),
-                value: selectedValue,
-                items: roomList.map((String room) {
-                  return DropdownMenuItem<String>(
-                    value: room,
-                    child: Row(
-                      children: [
-                        SizedBox(width: 20),
-                        Image.asset(
-                          'assets/device_Onboard/downarrow.png',
-                          width: 40,
-                          height: 40,
-                        ),
-                        SizedBox(width: 50),
-                        Text(
-                          room,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 22,
-                              fontFamily: 'outfit',
-                              fontWeight: FontWeight.w600),
-                        ),
-                      ],
-                    ),
-                  );
-                }).toList(),
-                onChanged: (newValue) {
-                  setState(() {
-                    selectedValue = newValue!;
-                  });
+          InkWell(
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return SelectRoom();
                 },
-                icon: SizedBox.shrink(),
+              );
+            },
+            borderRadius: BorderRadius.circular(60.5),
+            child: Container(
+              width: 300,
+              height: 80,
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              decoration: BoxDecoration(
+                color: Colors.black.withOpacity(0.25),
+                borderRadius: BorderRadius.circular(60.5),
+              ),
+              child: Row(
+                children: [
+                  SizedBox(width: 20),
+                  Image.asset(
+                    'assets/device_Onboard/downarrow.png',
+                    width: 40,
+                    height: 40,
+                  ),
+                  SizedBox(width: 70),
+                  Text(
+                    title,
+                    style: GoogleFonts.outfit(
+                      color: Colors.white,
+                      fontSize: 23,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -1016,12 +1001,11 @@ class _ColorControlState extends State<ColorControl> {
               children: [
                 SizedBox(height: 20),
                 Text(
-                  title,
-                  style: TextStyle(
+                  "   Icon",
+                  style: GoogleFonts.outfit(
                     color: Colors.white,
-                    fontSize: 23,
-                    fontFamily: 'Outfit',
-                    fontWeight: FontWeight.w900,
+                    fontSize: 24,
+                    fontWeight: FontWeight.w400,
                   ),
                 ),
                 SizedBox(
@@ -1029,30 +1013,42 @@ class _ColorControlState extends State<ColorControl> {
               ],
             ),
           ),
-          SizedBox(width: 10), // Add space between the text and the dropdown
-          Container(
-            width: 300,
-            height: 80,
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-            decoration: BoxDecoration(
-              color: Colors.black.withOpacity(0.25),
-              borderRadius: BorderRadius.circular(60.5),
-            ),
-            child: Row(
-              children: [
-                SizedBox(width: 20),
-                Image.asset(
-                  'assets/device_Onboard/downarrow.png',
-                  width: 40,
-                  height: 40,
-                ),
-                SizedBox(width: 70),
-                Image.asset(
-                  'assets/device_Onboard/PowerIcon.png',
-                  width: 40,
-                  height: 40,
-                ),
-              ],
+          // Add space between the text and the dropdown
+          SizedBox(width: 10),
+          InkWell(
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return SelectDeviceRGBControl();
+                },
+              );
+            },
+            borderRadius: BorderRadius.circular(60.5),
+            child: Container(
+              width: 300,
+              height: 80,
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              decoration: BoxDecoration(
+                color: Colors.black.withOpacity(0.25),
+                borderRadius: BorderRadius.circular(60.5),
+              ),
+              child: Row(
+                children: [
+                  SizedBox(width: 20),
+                  Image.asset(
+                    'assets/device_Onboard/downarrow.png',
+                    width: 40,
+                    height: 40,
+                  ),
+                  SizedBox(width: 90),
+                  Image.asset(
+                    'assets/device_Onboard/test.png',
+                    width: 40,
+                    height: 40,
+                  ),
+                ],
+              ),
             ),
           ),
         ],
@@ -1062,7 +1058,7 @@ class _ColorControlState extends State<ColorControl> {
 
   Widget _buildDeviceSettingRow(String title, String value) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10.0),
+      padding: const EdgeInsets.symmetric(vertical: 1.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -1073,11 +1069,10 @@ class _ColorControlState extends State<ColorControl> {
               children: [
                 Text(
                   title,
-                  style: TextStyle(
+                  style: GoogleFonts.outfit(
                     color: Colors.white,
-                    fontSize: 23,
-                    fontFamily: 'Outfit',
-                    fontWeight: FontWeight.w900,
+                    fontSize: 22,
+                    fontWeight: FontWeight.w300,
                   ),
                 ),
                 Text(
@@ -1118,7 +1113,7 @@ class _ColorControlState extends State<ColorControl> {
               SizedBox(width: 20),
               Expanded(
                 child: Text(
-                  "Downstairs Away Mode",
+                  "Main Sleep Mode",
                   style: GoogleFonts.outfit(
                     fontSize: 42,
                     fontWeight: FontWeight.w400,
@@ -1154,23 +1149,164 @@ class _ColorControlState extends State<ColorControl> {
             ],
           ),
           SizedBox(height: 60),
+          Column(
+            children: [
+              IgnorePointer(
+                ignoring: _NightLight,
+                child: Opacity(
+                  opacity: !_NightLight ? 1.0 : 0.5,
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Adjust colour temperature",
+                                  style: GoogleFonts.outfit(
+                                      color: Colors.white,
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.w400),
+                                ),
+                                FlutterSwitch(
+                                  value: _isSleepModeEnabledAway,
+                                  onToggle: (val) {
+                                    setState(() {
+                                      _isSleepModeEnabledAway = val;
+                                    });
+                                  },
+                                  width: 85.0,
+                                  height: 45.0,
+                                  toggleSize: 30.0,
+                                  borderRadius: 60.0,
+                                  padding: 8.0,
+                                  activeColor: Colors.white,
+                                  toggleColor: Colors.black,
+                                  inactiveColor: Colors.grey,
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 5),
+                            Text(
+                              "If the device’s colour is set using temperature, the temperature value will become warmer.",
+                              style: GoogleFonts.outfit(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w300),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Max Brightness",
+                                  style: GoogleFonts.outfit(
+                                      color: Colors.white,
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.w400),
+                                ),
+                                FlutterSwitch(
+                                  value: _MaxBrightness,
+                                  onToggle: (val) {
+                                    setState(() {
+                                      _MaxBrightness = val;
+                                    });
+                                  },
+                                  width: 85.0,
+                                  height: 45.0,
+                                  toggleSize: 30.0,
+                                  borderRadius: 60.0,
+                                  padding: 8.0,
+                                  activeColor: Colors.white,
+                                  toggleColor: Colors.black,
+                                  inactiveColor: Colors.grey,
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 5),
+                            Text(
+                              "Set a comfortable brightness for sleep mode.",
+                              style: GoogleFonts.outfit(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w300),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+          if (!_NightLight) ...[
+            SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: 10,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    // Add your cooling functionality here
+                  },
+                  child: Row(
+                    children: [
+                      Text(
+                        "Max: 60%",
+                        style: GoogleFonts.outfit(
+                          fontSize: 22,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    primary: Color(0xFF000000).withOpacity(0.25),
+                    onPrimary: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(60.5),
+                    ),
+                    minimumSize: Size(138, 64),
+                  ),
+                ),
+              ],
+            ),
+          ],
+          SizedBox(height: 20),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Include AC in Away Mode",
+                  "Use as nightlight",
                   style: GoogleFonts.outfit(
                       color: Colors.white,
                       fontSize: 24,
                       fontWeight: FontWeight.w400),
                 ),
                 FlutterSwitch(
-                  value: _isSleepModeEnabledAway,
+                  value: _NightLight,
                   onToggle: (val) {
                     setState(() {
-                      _isSleepModeEnabledAway = val;
+                      _NightLight = val;
                     });
                   },
                   width: 85.0,
@@ -1189,7 +1325,7 @@ class _ColorControlState extends State<ColorControl> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: Text(
-              "Set a range you would like your house to stay within while away.",
+              "Device will set to an amber colour and 5% brightness when in sleep mode.",
               style: GoogleFonts.outfit(
                   color: Colors.white,
                   fontSize: 20,
@@ -1197,48 +1333,311 @@ class _ColorControlState extends State<ColorControl> {
             ),
           ),
           SizedBox(height: 20),
+          if (_NightLight) ...[
+            SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Nightlight behaviour",
+                    style: GoogleFonts.outfit(
+                        color: Colors.white,
+                        fontSize: 24,
+                        fontWeight: FontWeight.w400),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: 10,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    // Add your cooling functionality here
+                  },
+                  child: Row(
+                    children: [
+                      Text(
+                        "Turn On Manually",
+                        style: GoogleFonts.outfit(
+                          fontSize: 22,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    primary: Color(0xFF000000).withOpacity(0.25),
+                    onPrimary: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(60.5),
+                    ),
+                    minimumSize: Size(312, 80),
+                  ),
+                ),
+                SizedBox(
+                  width: 40,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    // Add your cooling functionality here
+                  },
+                  child: Row(
+                    children: [
+                      Text(
+                        "Turn On with Sleep Mode",
+                        style: GoogleFonts.outfit(
+                          fontSize: 22,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    primary: Color(0xFF000000).withOpacity(0.25),
+                    onPrimary: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(60.5),
+                    ),
+                    minimumSize: Size(312, 80),
+                  ),
+                ),
+                SizedBox(
+                  width: 40,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    // Add your cooling functionality here
+                  },
+                  child: Row(
+                    children: [
+                      Text(
+                        "Use Motion Sensor",
+                        style: GoogleFonts.outfit(
+                          fontSize: 22,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.white.withOpacity(0.95),
+                    onPrimary: Colors.black,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(60.5),
+                    ),
+                    minimumSize: Size(312, 78),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: 22,
+                ),
+                Text(
+                  "This device will turn on for 5 minutes when a sensor in [lounge] detects motion.",
+                  style: GoogleFonts.outfit(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w300),
+                ),
+              ],
+            ),
+          ]
+        ],
+      ),
+    );
+  }
+
+  //////////////////////////////////////////////////////////////////////////////////
+  Widget _buildAwaypMode(BuildContext context) {
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              IconButton(
+                onPressed: () {
+                  _navigateToScreen('SettingMain');
+                },
+                icon: Image.asset(
+                  'assets/device_Onboard/white_back_arrow.png',
+                  width: 38,
+                  height: 38,
+                ),
+                iconSize: 38,
+              ),
+              SizedBox(width: 20),
+              Expanded(
+                child: Text(
+                  "Main Away Mode",
+                  style: GoogleFonts.outfit(
+                    fontSize: 42,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  // Add your export functionality here
+                },
+                child: Row(
+                  children: [
+                    Text(
+                      "Save Changes",
+                      style: GoogleFonts.outfit(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+                style: ElevatedButton.styleFrom(
+                  primary: Color.fromARGB(255, 14, 106, 255),
+                  onPrimary: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(60.5),
+                  ),
+                  minimumSize: Size(200, 65),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 60),
+          Column(
+            children: [
+              Column(children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Turn Off while Away",
+                            style: GoogleFonts.outfit(
+                                color: Colors.white,
+                                fontSize: 24,
+                                fontWeight: FontWeight.w400),
+                          ),
+                          FlutterSwitch(
+                            value: _isSleepModeEnabledAway,
+                            onToggle: (val) {
+                              setState(() {
+                                _isSleepModeEnabledAway = val;
+                              });
+                            },
+                            width: 85.0,
+                            height: 45.0,
+                            toggleSize: 30.0,
+                            borderRadius: 60.0,
+                            padding: 8.0,
+                            activeColor: Colors.white,
+                            toggleColor: Colors.black,
+                            inactiveColor: Colors.grey,
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 5),
+                      Text(
+                        "Light will turn off 5 minutes after Away mode is activated.",
+                        style: GoogleFonts.outfit(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w300),
+                      ),
+                    ],
+                  ),
+                ),
+              ]),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  /////////////////////////////////////////////////////////////////////////////////////
+  Widget _buildEcoMode(BuildContext context) {
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              SizedBox(
-                width: 10,
-              ),
-              ElevatedButton(
+              IconButton(
                 onPressed: () {
-                  // Add your cooling functionality here
+                  _navigateToScreen('SettingMain');
                 },
-                child: Row(
-                  children: [
-                    Text(
-                      "Minimum: 15º",
-                      style: GoogleFonts.outfit(
-                        fontSize: 22,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
+                icon: Image.asset(
+                  'assets/device_Onboard/white_back_arrow.png',
+                  width: 38,
+                  height: 38,
                 ),
-                style: ElevatedButton.styleFrom(
-                  primary: Color(0xFF000000).withOpacity(0.25),
-                  onPrimary: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(60.5),
-                  ),
-                  minimumSize: Size(172, 64),
-                ),
+                iconSize: 38,
               ),
               SizedBox(width: 20),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 15),
+                  Text(
+                    "Downstairs Sensors",
+                    style: TextStyle(
+                      fontSize: 42,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.white,
+                    ),
+                  ),
+                  Text(
+                    "Select Eco Mode settings for this Air Conditioner ",
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
+              Column(crossAxisAlignment: CrossAxisAlignment.end, children: []),
+              SizedBox(
+                width: 383,
+              ),
               ElevatedButton(
                 onPressed: () {
-                  // Add your heating functionality here
+                  // Add your export functionality here
                 },
                 child: Row(
                   children: [
                     Text(
-                      "Maximum: 27º",
+                      "Save Changes",
                       style: GoogleFonts.outfit(
-                        fontSize: 22,
+                        fontSize: 24,
                         fontWeight: FontWeight.w400,
                         color: Colors.white,
                       ),
@@ -1246,14 +1645,184 @@ class _ColorControlState extends State<ColorControl> {
                   ],
                 ),
                 style: ElevatedButton.styleFrom(
-                  primary: Color(0xFF000000).withOpacity(0.25),
+                  primary: Color.fromARGB(255, 14, 106, 255),
                   onPrimary: Colors.white,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(60.5),
                   ),
-                  minimumSize: Size(172, 64),
+                  minimumSize: Size(200, 65),
                 ),
               ),
+            ],
+          ),
+          SizedBox(height: 50),
+          Column(
+            children: [
+              Column(children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Max Brightness",
+                            style: GoogleFonts.outfit(
+                                color: Colors.white,
+                                fontSize: 24,
+                                fontWeight: FontWeight.w400),
+                          ),
+                          FlutterSwitch(
+                            value: _isSleepModeEnabledAway,
+                            onToggle: (val) {
+                              setState(() {
+                                _isSleepModeEnabledAway = val;
+                              });
+                            },
+                            width: 85.0,
+                            height: 45.0,
+                            toggleSize: 30.0,
+                            borderRadius: 60.0,
+                            padding: 8.0,
+                            activeColor: Colors.white,
+                            toggleColor: Colors.black,
+                            inactiveColor: Colors.grey,
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 5),
+                      Text(
+                        "Limit the brightness of your devices to avoid excess usage.",
+                        style: GoogleFonts.outfit(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w300),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: 10,
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        // Add your cooling functionality here
+                      },
+                      child: Row(
+                        children: [
+                          Text(
+                            "Max: 60%",
+                            style: GoogleFonts.outfit(
+                              fontSize: 22,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        primary: Color(0xFF000000).withOpacity(0.25),
+                        onPrimary: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(60.5),
+                        ),
+                        minimumSize: Size(138, 64),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Eco Auto Off",
+                            style: GoogleFonts.outfit(
+                                color: Colors.white,
+                                fontSize: 24,
+                                fontWeight: FontWeight.w400),
+                          ),
+                          FlutterSwitch(
+                            value: _isSleepModeEnabled,
+                            onToggle: (val) {
+                              setState(() {
+                                _isSleepModeEnabled = val;
+                              });
+                            },
+                            width: 85.0,
+                            height: 45.0,
+                            toggleSize: 30.0,
+                            borderRadius: 60.0,
+                            padding: 8.0,
+                            activeColor: Colors.white,
+                            toggleColor: Colors.black,
+                            inactiveColor: Colors.grey,
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 5),
+                      Text(
+                        "Auto Off after a set period of time when in eco mode.",
+                        style: GoogleFonts.outfit(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w300),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: 10,
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        // Add your cooling functionality here
+                      },
+                      child: Row(
+                        children: [
+                          Text(
+                            "After 1hr, 20min",
+                            style: GoogleFonts.outfit(
+                              fontSize: 22,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        primary: Color(0xFF000000).withOpacity(0.25),
+                        onPrimary: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(60.5),
+                        ),
+                        minimumSize: Size(138, 64),
+                      ),
+                    ),
+                  ],
+                ),
+              ]),
             ],
           ),
         ],
